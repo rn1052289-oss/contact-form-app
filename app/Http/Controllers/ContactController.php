@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Requests\StoreContactRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Tag;
 
