@@ -285,6 +285,38 @@ class AdminManagementTest extends TestCase
     }
 
     /**
+     * 認証済みユーザーがお問い合わせを削除できることをテスト
+     */
+    public function test_authenticated_user_can_delete_contact()
+    {
+        // 管理者ユーザーを作成
+        $user = User::factory()->create();
+
+        // カテゴリを作成
+        $category = Category::create([
+            'content' => '商品について',
+        ]);
+
+        // 削除対象のお問い合わせを作成
+        $contact = $this->createContact([
+            'category_id' => $category->id,
+        ]);
+
+        // お問い合わせを削除
+        $response = $this
+            ->actingAs($user)
+            ->delete("/admin/contacts/{$contact->id}");
+
+        // 管理画面へリダイレクトされることを確認
+        $response->assertRedirect('/admin');
+
+        // お問い合わせが削除されたことを確認
+        $this->assertDatabaseMissing('contacts', [
+            'id' => $contact->id,
+        ]);
+    }
+
+    /**
      * テスト用のお問い合わせを作成
      */
     private function createContact(array $attributes = [])
