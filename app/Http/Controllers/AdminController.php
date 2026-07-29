@@ -6,6 +6,7 @@ use App\Http\Requests\IndexContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -38,5 +39,12 @@ class AdminController extends Controller
         return view('admin.show', [
             'contact' => $contact,
         ]);
+    }
+
+    public function destroy(Contact $contact): RedirectResponse
+    {
+        $contact->delete();
+
+        return redirect()->route('admin.index');
     }
 }
