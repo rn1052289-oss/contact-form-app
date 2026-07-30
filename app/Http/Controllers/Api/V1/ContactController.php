@@ -10,9 +10,6 @@ use Illuminate\Http\JsonResponse;
 
 class ContactController extends Controller
 {
-    /**
-     * お問い合わせ一覧を取得する
-     */
     public function index(IndexContactRequest $request): JsonResponse
     {
         $conditions = $request->validated();
@@ -36,5 +33,12 @@ class ContactController extends Controller
                 'total' => $contacts->total(),
             ],
         ]);
+    }
+
+    public function show(Contact $contact): ContactResource
+    {
+        $contact->load(['category', 'tags']);
+
+        return new ContactResource($contact);
     }
 }
