@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\IndexContactRequest;
 use App\Http\Requests\Api\V1\StoreContactRequest;
+use App\Http\Requests\Api\V1\UpdateContactRequest;
 use App\Http\Resources\Api\V1\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
@@ -67,5 +68,24 @@ class ContactController extends Controller
         $contact->load(['category', 'tags']);
 
         return new ContactResource($contact);
+    }
+
+    public function update(UpdateContactRequest $request, Contact $contact): JsonResponse
+    {
+        $validated = $request->validated();
+        $tagIds = $validated['tag_ids'] ?? [];
+
+        unset($validated['tag_ids']);
+
+        DB::transaction(function () use ($contact, $validated, $tagIds): void {
+            $contact->update($validated);
+            $contact->tags()->sync($tagIds);
+        });
+
+        $contact->load(['category', 'tags']);
+
+        return (new ContactResource($contact))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
     }
 }
