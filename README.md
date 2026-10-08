@@ -1,5 +1,32 @@
 # お問い合わせフォーム
 
+[![Tests](https://github.com/rn1052289-oss/contact-form-app/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/rn1052289-oss/contact-form-app/actions/workflows/tests.yml)
+
+お問い合わせの受付から、管理者による検索・確認・CSV出力までを扱うLaravel製アプリです。
+管理者はシーダーで作成し、管理画面へのログインとSanctumによるAPI認証に対応しています。
+
+### 画面イメージ
+
+| お問い合わせフォーム | 管理画面 |
+| --- | --- |
+| ![お問い合わせフォーム](docs/images/form.png) | ![お問い合わせ管理画面](docs/images/admin.png) |
+
+画像は後日追加予定です。
+
+### 機能の要約
+
+- 入力 → 確認 → 完了のお問い合わせ送信
+- 管理者ログインと管理画面のアクセス制御
+- お問い合わせの検索・絞り込み・詳細確認・削除
+- タグ管理とCSVエクスポート
+- Sanctum認証付きJSON APIと自動テスト
+
+**使用技術：** PHP / Laravel 10 / Fortify / Sanctum / MySQL / Blade / Tailwind CSS / JavaScript / Docker（Laravel Sail）/ PHPUnit / GitHub Actions
+
+詳しい仕様・環境構築は下記を参照してください。
+
+---
+
 Laravel 10を使用して開発した、お問い合わせフォーム管理アプリケーションです。
 
 一般ユーザー向けのお問い合わせフォームに加えて、管理画面利用者向けの認証機能、お問い合わせ管理機能、タグ管理機能、CSVエクスポート機能を実装しています。
