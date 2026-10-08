@@ -27,19 +27,7 @@
                     FashionablyLate
                 </a>
             </div>
-            <div class="w-24 flex justify-end">
-                @if (request()->routeIs('login'))
-                    <a href="{{ route('register') }}"
-                        class="px-5 py-1.5 border border-[#ddd8d3] text-[#c4bab0] bg-white rounded hover:bg-gray-50 transition lowercase text-center whitespace-nowrap text-sm">
-                        {{ __('register') }}
-                    </a>
-                @elseif(request()->routeIs('register'))
-                    <a href="{{ route('login') }}"
-                        class="px-5 py-1.5 border border-[#ddd8d3] text-[#c4bab0] bg-white rounded hover:bg-gray-50 transition lowercase text-center whitespace-nowrap text-sm">
-                        {{ __('login') }}
-                    </a>
-                @endif
-            </div>
+            <div class="w-24"></div>
         </div>
     </header>
     <main>

@@ -47,10 +47,5 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('auth.login');
         });
-
-        // ユーザー登録フォームのビューを指定
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
     }
 }
