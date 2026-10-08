@@ -5,12 +5,21 @@ namespace Tests\Feature\Api\V1;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ContactUpdateApiTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Sanctum::actingAs(User::factory()->create());
+    }
 
     /**
      * お問い合わせを更新して200が返ることをテスト
