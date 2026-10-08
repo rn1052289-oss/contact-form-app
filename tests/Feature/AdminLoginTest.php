@@ -20,7 +20,7 @@ class AdminLoginTest extends TestCase
         $response->assertSee('メールアドレス');
         $response->assertSee('パスワード');
         $response->assertSee('ログイン');
-        $response->assertSee('href="'.route('register').'"', false);
+        $response->assertDontSee('href="/register"', false);
     }
 
     public function test_email_is_required_for_login(): void

@@ -34,7 +34,7 @@ Laravel 10を使用して開発した、お問い合わせフォーム管理ア�
 
 ### 管理画面利用者向け機能
 
-- 管理画面利用者の登録
+- 管理者はシーダーで作成（公開の新規登録は無効）
 - ログイン
 - ログアウト
 - 未認証ユーザーのアクセス制御
@@ -386,6 +386,17 @@ sail artisan migrate --seed
 ```
 
 データベース接続エラーが発生した場合は、MySQLコンテナの起動完了を少し待ってから再実行してください。
+
+シーダーで管理者も作成されます。`APP_ENV=local`で`ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD`が未設定の場合、以下のローカル用ログイン情報を使用できます。
+
+- 名前：管理者
+- メールアドレス：`admin@example.com`
+- パスワード：`password`
+- ログイン画面：`http://localhost/login`
+
+独自の管理者情報を使う場合は、シーダー実行前に`.env`の`ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD`を設定してください。環境変数は`config/admin.php`を通して読み込みます。設定をキャッシュしている場合は、変更後に`sail artisan config:cache`で更新してください。
+
+同じメールアドレスのユーザーがいる場合は、重複作成せず、既存の名前・パスワードも変更しません。ローカル以外の環境では3項目をすべて設定してください。本番環境で`ADMIN_PASSWORD`が未設定または空の場合は例外になり、管理者を作成しません。`password`はローカル専用です。
 
 既存のデータベースをリセットする場合は、以下のコマンドを実行します。
 
@@ -840,7 +851,6 @@ http://localhost/api/v1/contacts?keyword=山田&gender=1&category_id=2&page=1&pe
 | 用途                 | URL                                                                  |
 | -------------------- | -------------------------------------------------------------------- |
 | お問い合わせフォーム | [http://localhost](http://localhost)                                 |
-| 管理画面利用者登録   | [http://localhost/register](http://localhost/register)               |
 | ログイン             | [http://localhost/login](http://localhost/login)                     |
 | 管理画面             | [http://localhost/admin](http://localhost/admin)                     |
 | お問い合わせAPI      | [http://localhost/api/v1/contacts](http://localhost/api/v1/contacts) |

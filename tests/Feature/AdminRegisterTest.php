@@ -10,6 +10,24 @@ class AdminRegisterTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_registration_page_is_not_available(): void
+    {
+        $this->get('/register')->assertNotFound();
+    }
+
+    public function test_registration_cannot_create_a_user(): void
+    {
+        $this->post('/register', [
+            'name' => 'Unauthorized Admin',
+            'email' => 'unauthorized@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ])->assertNotFound();
+
+        $this->assertDatabaseCount('users', 0);
+        $this->assertGuest();
+    }
+
     public function test_unauthenticated_user_is_redirected_to_login_from_admin(): void
     {
         $response = $this->get('/admin');
